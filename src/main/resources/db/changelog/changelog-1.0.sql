@@ -59,7 +59,7 @@ create table TB_OVAS(
 
 create table TB_TOPICS(
                         id bigint primary key auto_increment,
-                        index int not null,
+                        indice int not null,
                         title varchar(255) not null,
                         objetive varchar(255) not null,
                         ova_id bigint references TB_OVAS(id),
@@ -77,7 +77,7 @@ create table TB_TOPICS(
 
 create table TB_TOPIC_CONTENTS(
                           id bigint primary key auto_increment,
-                          content varchar(255) not null,
+                          content varchar(255),
                           topic_id bigint references TB_TOPICS(id)
 );
 
@@ -92,7 +92,7 @@ create table TB_TOPIC_CONTENTS(
 
 create table TB_SUBJECT_MATTER(
                                   id bigint primary key auto_increment,
-                                  index integer not null,
+                                  indice int not null,
                                   type varchar(255) not null,
                                   question text not null,
                                   topic_id bigint references TB_TOPICS(id),

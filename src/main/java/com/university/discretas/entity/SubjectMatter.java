@@ -22,7 +22,10 @@ public class SubjectMatter implements Serializable {
     @ManyToOne
     @JoinColumn(name = "topic_id")
     private Topic topic;
+
+    @Column(name = "indice")
     private Integer index;
+
     private String type;
     private String question;
 

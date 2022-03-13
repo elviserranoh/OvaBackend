@@ -20,6 +20,7 @@ public class Topic implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "indice")
     private Integer index;
     private String title;
     private String objetive;
