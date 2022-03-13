@@ -1,0 +1,17 @@
+package com.university.discretas.service;
+
+import com.university.discretas.entity.SubjectMatter;
+import com.university.discretas.repository.SubjectMatterRepository;
+import com.university.discretas.service.base.BaseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class SubjectMatterService extends BaseService<SubjectMatter, Long, SubjectMatterRepository> {
+
+    public Page<SubjectMatter> findAllByTopic_TitleContainingIgnoreCase(String title, Pageable pageable) {
+        return repository.findAllByTopic_TitleContainingIgnoreCase(title, pageable);
+    }
+}
