@@ -1,9 +1,12 @@
 package com.university.discretas.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Table(name = "tb_feed")
 @Entity
@@ -23,5 +26,15 @@ public class Feed implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Usuario usuario;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate created;
+
+
+    @PrePersist
+    public void setup() {
+        created = LocalDate.now();
+    }
 
 }
