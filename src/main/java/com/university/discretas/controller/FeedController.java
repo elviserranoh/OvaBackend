@@ -79,12 +79,11 @@ public class FeedController {
 
         try {
 
-            SecurityContext context = SecurityContextHolder.getContext();
-            Authentication authentication = context.getAuthentication();
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            UserDetails auth = (UserDetails) authentication.getPrincipal();
+            log.info("#### USERNAME IDENTITY DOCUMENT " + authentication.getName());
 
-            Usuario currentUser = usuarioService.findByIdentityDocument(auth.getUsername());
+            Usuario currentUser = usuarioService.findByIdentityDocument(authentication.getName());
 
             Feed feed = Feed.builder()
                     .usuario(currentUser)

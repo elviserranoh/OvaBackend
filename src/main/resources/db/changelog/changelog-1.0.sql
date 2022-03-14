@@ -231,3 +231,14 @@ ALTER TABLE tb_events ADD COLUMN user_id bigint references tb_users(id);
 ALTER TABLE tb_feed ADD COLUMN user_id bigint references tb_users(id);
 
 --rollback DROP TABLE tb_feed
+
+--changeset elvis.serrano:tb_feed_changelog.0.3 context:dev,prod
+--comment tb_feed creation tag: tb_tb_feed_changelog.0.3
+
+--
+-- tb_feed
+--
+
+ALTER TABLE tb_feed ADD COLUMN created date;
+
+--rollback DROP TABLE tb_feed
