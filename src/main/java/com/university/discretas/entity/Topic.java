@@ -34,6 +34,13 @@ public class Topic implements Serializable {
             orphanRemoval = true)
     private List<ContentTopic> contents;
 
+
+    @OneToMany(mappedBy = "topic",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<SubjectMatter> topics;
+
     private String image;
 
 }
