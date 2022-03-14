@@ -58,16 +58,14 @@ public class TopicController {
         return ResponseEntity.ok(entities);
     }
 
-    @GetMapping(value = "/{id}", headers = {"Authorization"})
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    @GetMapping(value = "/{id}/ova", headers = {"Authorization"})
+    public ResponseEntity<?> findAllByOva(@PathVariable Long id) {
         Ova ova = ovaService.findById(id).orElse(null);
 
         if(ova == null) {
             Map<String, Object> errors = new HashMap<>();
-
             errors.put("error", "No existe el ova");
             errors.put("status", HttpStatus.BAD_REQUEST);
-
             return ResponseEntity.badRequest().body(errors);
         }
 
@@ -75,8 +73,8 @@ public class TopicController {
         return ResponseEntity.ok(entities);
     }
 
-    @GetMapping(value = "/{id}/ova", headers = {"Authorization"})
-    public ResponseEntity<?> findAllByOva(@PathVariable Long id) {
+    @GetMapping(value = "/{id}", headers = {"Authorization"})
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         Topic entity = service.findById(id).orElse(null);
         return ResponseEntity.ok(entity);
     }
