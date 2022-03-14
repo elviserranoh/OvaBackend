@@ -26,6 +26,8 @@ public class SubjectMatter implements Serializable {
     @Column(name = "indice")
     private Integer index;
 
+    private String title;
+
     private String type;
     private String question;
 

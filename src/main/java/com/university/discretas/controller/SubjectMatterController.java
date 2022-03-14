@@ -92,6 +92,7 @@ public class SubjectMatterController {
     @PostMapping
     public ResponseEntity<?> save(
             @RequestParam("topicId") Long topicId,
+            @RequestParam("title") String title,
             @RequestParam("index") Integer index,
             @RequestParam("type") String type,
             @RequestParam("question") String question,
@@ -118,6 +119,7 @@ public class SubjectMatterController {
 
             SubjectMatter entity = SubjectMatter.builder()
                     .index(index)
+                    .title(title)
                     .topic(topic)
                     .type(type)
                     .question(question)
@@ -162,6 +164,7 @@ public class SubjectMatterController {
             @RequestParam("topicId") Long topicId,
             @RequestParam("index") Integer index,
             @RequestParam("type") String type,
+            @RequestParam("title") String title,
             @RequestParam("question") String question,
             @RequestParam("rows") List<String> rows,
             @RequestParam("columns") List<String> columns,
@@ -225,6 +228,7 @@ public class SubjectMatterController {
             entity.setQuestion(question);
             entity.setType(type);
             entity.setIndex(index);
+            entity.setTitle(title);
 
             subjectMatterService.edit(entity);
 
