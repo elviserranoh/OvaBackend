@@ -171,7 +171,9 @@ public class TopicController {
             current.setObjetive(objetive);
             current.setOva(ova);
 
-            contentTopicService.deleteAllByTopic(current);
+            if(!current.getContents().isEmpty()) {
+                contentTopicService.deleteAllByTopic(current);
+            }
 
             List<ContentTopic> contentTopics = contentTopic.stream().map(item -> new ContentTopic(item, current)).collect(Collectors.toList());
 
