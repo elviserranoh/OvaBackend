@@ -165,6 +165,7 @@ public class TopicController {
                 fileName = current.getImage();
             }
 
+            current.setId(id);
             current.setIndex(index);
             current.setTitle(title);
             current.setObjetive(objetive);

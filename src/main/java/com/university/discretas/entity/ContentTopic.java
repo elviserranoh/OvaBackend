@@ -21,7 +21,7 @@ public class ContentTopic implements Serializable {
     private String content;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "topic_id")
     private Topic topic;
 
