@@ -219,4 +219,16 @@ ALTER TABLE tb_subject_matter ADD COLUMN title varchar(255);
 
 ALTER TABLE tb_events ADD COLUMN user_id bigint references tb_users(id);
 
---rollback DROP TABLE tb_events
+--rollback DROP TABLE tb_feed
+
+
+--changeset elvis.serrano:tb_feed_changelog.0.2 context:dev,prod
+--comment tb_feed creation tag: tb_tb_feed_changelog.0.2
+
+--
+-- tb_feed
+--
+
+ALTER TABLE tb_feed ADD COLUMN user_id bigint references tb_users(id);
+
+--rollback DROP TABLE tb_feed
