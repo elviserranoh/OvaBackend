@@ -209,3 +209,14 @@ CREATE TABLE tb_events(
 ALTER TABLE tb_subject_matter ADD COLUMN title varchar(255);
 
 --rollback DROP TABLE tb_subject_matter
+
+--changeset elvis.serrano:tb_events_changelog.0.2 context:dev,prod
+--comment tb_events creation tag: tb_events_changelog.0.2
+
+--
+-- tb_events
+--
+
+ALTER TABLE tb_events ADD COLUMN user_id bigint references tb_users(id);
+
+--rollback DROP TABLE tb_events

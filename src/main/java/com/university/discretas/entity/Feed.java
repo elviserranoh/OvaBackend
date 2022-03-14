@@ -20,4 +20,8 @@ public class Feed implements Serializable {
 
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Usuario usuario;
+
 }

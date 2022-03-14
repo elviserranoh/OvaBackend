@@ -1,7 +1,11 @@
 package com.university.discretas.controller;
 
 import com.university.discretas.entity.Feed;
+import com.university.discretas.entity.Usuario;
+import com.university.discretas.repository.UsuarioCustomRepository;
 import com.university.discretas.service.FeedService;
+import com.university.discretas.service.IUsuarioService;
+import com.university.discretas.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
@@ -9,6 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.HashMap;
@@ -23,6 +31,7 @@ import java.util.Objects;
 public class FeedController {
 
     private final FeedService feedService;
+    private final IUsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity<?> findAll() {
@@ -69,7 +78,16 @@ public class FeedController {
     public ResponseEntity<?> save(@RequestParam("description") String description) {
 
         try {
+
+            SecurityContext context = SecurityContextHolder.getContext();
+            Authentication authentication = context.getAuthentication();
+
+            UserDetails auth = (UserDetails) authentication.getPrincipal();
+
+            Usuario currentUser = usuarioService.findByIdentityDocument(auth.getUsername());
+
             Feed feed = Feed.builder()
+                    .usuario(currentUser)
                     .description(description)
                     .build();
             Feed current = feedService.save(feed);
