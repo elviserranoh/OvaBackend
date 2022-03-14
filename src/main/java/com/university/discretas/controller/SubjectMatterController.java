@@ -59,6 +59,22 @@ public class SubjectMatterController {
         return ResponseEntity.ok(entity);
     }
 
+    @GetMapping(value = "/{id}/topic", headers = {"Authorization"})
+    public ResponseEntity<?> findAllByTopic(@PathVariable Long id) {
+
+        Topic topic = topicService.findById(id).orElse(null);
+
+        if(topic == null) {
+            Map<String, Object> errors = new HashMap<>();
+            errors.put("error", "No existe el topico");
+            errors.put("status", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        List<SubjectMatter> entities = subjectMatterService.findAllByTopic(topic);
+        return ResponseEntity.ok(entities);
+    }
+
     @DeleteMapping(value = "/{id}", headers = {"Authorization"})
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         SubjectMatter current = subjectMatterService.findById(id).orElse(null);
