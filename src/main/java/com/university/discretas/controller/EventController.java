@@ -34,8 +34,8 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/{date}")
-    public ResponseEntity<?> findAllByDate(@PathVariable String date) {
+    @GetMapping("/date")
+    public ResponseEntity<?> findAllByDate(@RequestParam String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateFormat = LocalDate.parse(date, formatter);
         List<Event> events = eventService.findAllByDate(dateFormat);
