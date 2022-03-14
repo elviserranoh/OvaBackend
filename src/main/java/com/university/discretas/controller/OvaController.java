@@ -160,24 +160,27 @@ public class OvaController {
     }
 
     @GetMapping("/image/{name:.+}")
-    public ResponseEntity<Resource> imageLoad(@PathVariable String name) {
+    public ResponseEntity<?> imageLoad(@PathVariable String name) {
 
-        Resource resource = null;
+            Resource resource = null;
 
-        try {
-            resource = fileService.load(name);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+            try {
+                resource = fileService.load(name);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
 
-        if (!Objects.requireNonNull(resource).exists() && !resource.isReadable()) {
-            throw new RuntimeException("error no se pudo cargar la imagen: " + name);
-        }
+            if (!Objects.requireNonNull(resource).exists() && !resource.isReadable()) {
+               return ResponseEntity.badRequest().body("error no se pudo cargar la imagen: " + name);
+            }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
 
-        return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+            return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+
+
+
     }
 
 }
