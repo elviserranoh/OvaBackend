@@ -34,6 +34,14 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
+    @GetMapping("/{date}")
+    public ResponseEntity<?> findAllByDate(@PathVariable String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateFormat = LocalDate.parse(date, formatter);
+        List<Event> events = eventService.findAllByDate(dateFormat);
+        return ResponseEntity.ok(events);
+    }
+
     @GetMapping(value = "/page/{page}/size/{size}", headers = {"Authorization"})
     public ResponseEntity<?> findAll(@PathVariable Integer page,
                                      @PathVariable Integer size,
