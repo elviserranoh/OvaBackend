@@ -1,5 +1,7 @@
 package com.university.discretas.controller;
 
+import com.university.discretas.dto.DebateCommentRequest;
+import com.university.discretas.dto.DebateRequest;
 import com.university.discretas.entity.Debate;
 import com.university.discretas.entity.DebateComment;
 import com.university.discretas.entity.Usuario;
@@ -58,15 +60,14 @@ public class DebateController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestParam("title") String title,
-                                  @RequestParam("description") String description) {
+    public ResponseEntity<?> save(@RequestBody DebateRequest debateRequest) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Usuario currentUser = usuarioService.findByIdentityDocument(authentication.getName());
 
             Debate debate = Debate.builder()
-                    .title(title)
-                    .description(description)
+                    .title(debateRequest.getTitle())
+                    .description(debateRequest.getDescription())
                     .usuario(currentUser)
                     .build();
 
@@ -86,14 +87,12 @@ public class DebateController {
     }
 
     @PostMapping("/{id}/comment")
-    public ResponseEntity<?> saveComment(
-            @RequestParam("id") Long id,
-            @RequestParam("description") String description) {
+    public ResponseEntity<?> saveComment(@RequestBody DebateCommentRequest debateCommentRequest) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Usuario currentUser = usuarioService.findByIdentityDocument(authentication.getName());
 
-            Debate debate = debateService.findById(id).orElse(null);
+            Debate debate = debateService.findById(debateCommentRequest.getId()).orElse(null);
 
             if (debate == null) {
                 Map<String, Object> errors = new HashMap<>();
@@ -103,7 +102,7 @@ public class DebateController {
             }
 
             DebateComment debateComment = DebateComment.builder()
-                    .description(description)
+                    .description(debateCommentRequest.getDescription())
                     .usuario(currentUser)
                     .debate(debate)
                     .build();
