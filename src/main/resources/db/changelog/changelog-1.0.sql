@@ -242,3 +242,37 @@ ALTER TABLE tb_feed ADD COLUMN user_id bigint references tb_users(id);
 ALTER TABLE tb_feed ADD COLUMN created date;
 
 --rollback DROP TABLE tb_feed
+
+--changeset elvis.serrano:tb_debate_changelog.0.1 context:dev,prod
+--comment tb_debate creation tag: tb_debate_changelog.0.1
+
+--
+-- tb_debate
+--
+
+CREATE TABLE tb_debate(
+                          id bigint primary key auto_increment,
+                          description text,
+                          title varchar(255) not null,
+                          user_id bigint references tb_users(id),
+                          created date not null
+);
+
+--rollback DROP TABLE tb_debate
+
+--changeset elvis.serrano:tb_debate_comment_changelog.0.1 context:dev,prod
+--comment tb_debate_comment creation tag: tb_debate_comment_changelog.0.1
+
+--
+-- tb_debate_comment
+--
+
+CREATE TABLE tb_debate_comment(
+                                  id bigint primary key auto_increment,
+                                  description text,
+                                  user_id bigint references tb_users(id),
+                                  debate_id bigint references tb_debate(id),
+                                  created date not null
+);
+
+--rollback DROP TABLE tb_debate_comment
