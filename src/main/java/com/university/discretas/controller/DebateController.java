@@ -87,7 +87,7 @@ public class DebateController {
     }
 
     @PostMapping("/{id}/comment")
-    public ResponseEntity<?> saveComment(@RequestBody DebateCommentRequest debateCommentRequest) {
+    public ResponseEntity<?> saveComment(@PathVariable Long id, @RequestBody DebateCommentRequest debateCommentRequest) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Usuario currentUser = usuarioService.findByIdentityDocument(authentication.getName());
