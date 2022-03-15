@@ -107,7 +107,7 @@ public class DebateController {
                     .debate(debate)
                     .build();
 
-            Debate current = debateService.save(debate);
+            DebateComment current = debateCommentService.save(debateComment);
 
             URI uri = URI.create(String.format("api/debate/%d", current.getId()));
             return ResponseEntity.created(uri).body(current);
