@@ -88,7 +88,6 @@ public class DebateController {
     @PostMapping("/{id}/comment")
     public ResponseEntity<?> saveComment(
             @RequestParam("id") Long id,
-            @RequestParam("title") String title,
             @RequestParam("description") String description) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
